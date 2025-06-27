@@ -1,8 +1,5 @@
 {
   "projects": {
-    "default": "projetoiec-pixeltrack",
-    "prod": "projetoiec-pixeltrack"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "bytegames-8c0ec"
+  }
 }

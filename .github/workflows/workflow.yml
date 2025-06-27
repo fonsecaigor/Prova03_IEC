@@ -1,0 +1,32 @@
+name: CI com GitActions
+
+# 🔁 Evento que dispara o workflow: push na branch dev
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    # 🖥️ Ambiente de execução: máquina virtual Ubuntu
+    runs-on: ubuntu-latest
+
+    # 🔢 Etapas do trabalho (job)
+    steps:
+      # 1️⃣ Faz o checkout do código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configura a versão do Node.js
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # ou outra versão do seu projeto
+
+      # 3️⃣ Instala as dependências do projeto
+      - name: Instala dependências
+        run: npm install
+
+      # 4️⃣ Executa os testes automatizados
+      - name: Executa testes
+        run: npm test
