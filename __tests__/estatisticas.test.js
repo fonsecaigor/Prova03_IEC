@@ -1,4 +1,3 @@
-// tests/estatisticas.test.js
 const { calcularTaxaVitoria } = require("../src/utils/estatisticas");
 
 describe("Função calcularTaxaVitoria", () => {

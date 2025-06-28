@@ -1,32 +1,41 @@
-name: CI com GitActions
+name: CI e Deploy Firebase Hosting
 
-# 🔁 Evento que dispara o workflow: push na branch dev
 on:
   push:
     branches:
       - main
 
 jobs:
-  test:
-    # 🖥️ Ambiente de execução: máquina virtual Ubuntu
+  test-and-deploy:
     runs-on: ubuntu-latest
 
-    # 🔢 Etapas do trabalho (job)
     steps:
-      # 1️⃣ Faz o checkout do código do repositório
+      # 1️⃣ Checkout do repositório
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 2️⃣ Configura a versão do Node.js
+      # 2️⃣ Configura Node.js
       - name: Configura Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # ou outra versão do seu projeto
+          node-version: "18"
 
-      # 3️⃣ Instala as dependências do projeto
+      # 3️⃣ Instala dependências
       - name: Instala dependências
         run: npm install
 
-      # 4️⃣ Executa os testes automatizados
+      # 4️⃣ Executa testes automatizados
       - name: Executa testes
         run: npm test
+
+      # 5️⃣ Build do projeto
+      - name: Build do projeto
+        run: npm run build
+
+      # 6️⃣ Deploy para Firebase Hosting (apenas se os testes passarem)
+      - name: Deploy para Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          channelId: live
